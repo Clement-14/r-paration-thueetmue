@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réparation Téléphones & Tablettes - Thue et Mue</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    /* CSS personnalisé */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(90deg, rgba(65,105,225,1) 0%, rgba(138,43,226,1) 100%);
+      padding: 1.5rem 0;
+    }
+    h1, h2, h3 {
+      font-family: 'Roboto', sans-serif;
+    }
+    .service-card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+    .service-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .service-card .card-body {
+      padding: 1.5rem;
+    }
+    .button {
+      background: linear-gradient(90deg, rgba(65,105,225,1) 0%, rgba(138,43,226,1) 100%);
+      padding: 0.75rem 2rem;
+      border-radius: 5px;
+      color: white;
+      text-transform: uppercase;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .button:hover {
+      background: linear-gradient(90deg, rgba(138,43,226,1) 0%, rgba(65,105,225,1) 100%);
+    }
+    .footer {
+      background: linear-gradient(90deg, rgba(65,105,225,1) 0%, rgba(138,43,226,1) 100%);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    .map-container {
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <header class="text-white">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold">Réparation Téléphones & Tablettes</h1>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="#services" class="hover:underline">Services</a></li>
+          <li><a href="#contact" class="hover:underline">Contact</a></li>
+          <li><a href="#map-section" class="hover:underline">Localisation</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Section d'accueil avec image de fond -->
+    <section class="bg-cover bg-center h-80" style="background-image: url('https://picsum.photos/1500/400?grayscale');">
+      <div class="h-full bg-gradient-to-r from-blue-600 to-purple-600 bg-opacity-70 flex justify-center items-center">
+        <h2 class="text-white text-5xl font-bold text-center">Votre Expert en Réparation à Thue et Mue</h2>
+      </div>
+    </section>
+
+    <!-- Section Services -->
+    <section id="services" class="py-12 container mx-auto">
+      <h3 class="text-4xl font-bold text-center mb-8 text-gray-700">Nos Services</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="service-card">
+          <img src="https://i-rep.fr/wp-content/webpc-passthru.php?src=https://i-rep.fr/wp-content/uploads/2019/08/reparation-iphone-irep.jpg&nocache=1" alt="Réparation iPhone">
+          <div class="card-body">
+            <h4 class="text-xl font-semibold mb-4">Réparation d'iPhone</h4>
+            <p>Changement d'écrans, batteries et réparations spécifiques pour les iPhones.</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <img src="https://www.teclab.fr/wp-content/uploads/2024/04/hands-performing-disassembly-maintenance-of-smartphones.jpg" alt="Réparation Android">
+          <div class="card-body">
+            <h4 class="text-xl font-semibold mb-4">Réparation Android</h4>
+            <p>Réparations rapides pour toutes les marques Android : Samsung, Huawei, Xiaomi, etc.</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <img src="https://www.zone-actu.com/wp-content/uploads/2022/12/reparation-tablette.jpg" alt="Réparation de Tablettes">
+          <div class="card-body">
+            <h4 class="text-xl font-semibold mb-4">Réparation de Tablettes</h4>
+            <p>Services dédiés aux tablettes : écrans, batteries et autres composants.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section id="contact" class="py-12 container mx-auto">
+      <h3 class="text-4xl font-bold text-center mb-8 text-gray-700">Contactez-nous</h3>
+      <form class="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-6" action="https://formspree.io/f/xqapdlkz" method="POST">
+        <div class="mb-4">
+          <label class="block text-sm font-bold mb-2 text-gray-700" for="name">Nom</label>
+          <input class="w-full px-4 py-2 border rounded-lg" type="text" id="name" name="name" placeholder="Votre nom" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-bold mb-2 text-gray-700" for="email">Email</label>
+          <input class="w-full px-4 py-2 border rounded-lg" type="email" id="email" name="email" placeholder="Votre email" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-bold mb-2 text-gray-700" for="message">Message</label>
+          <textarea class="w-full px-4 py-2 border rounded-lg" id="message" name="message" rows="4" placeholder="Votre message" required></textarea>
+        </div>
+        <button class="button w-full" type="submit">Envoyer</button>
+      </form>
+      <div class="text-center mt-8 text-gray-700">
+        <p><strong>Adresse :</strong> 4 rue du Château, Sainte-Croix-Grand-Tonne</p>
+      </div>
+    </section>
+
+    <!-- Section Localisation avec la carte -->
+    <section id="map-section" class="py-12">
+      <h3 class="text-4xl font-bold text-center mb-8 text-gray-700">Localisation</h3>
+      <div class="container mx-auto">
+        <div id="map" class="map-container w-full"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2025 Réparation Téléphones & Tablettes - Thue et Mue. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Coordonnées pour 4 rue du Château, Sainte-Croix-Grand-Tonne
+      var map = L.map('map').setView([49.233194843941405, -0.555487577537769], 15);
+
+      // Ajouter les tuiles OpenStreetMap
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Ajouter un marqueur
+      var marker = L.marker([49.233194843941405, -0.555487577537769]).addTo(map);
+      marker.bindPopup("<b>Atelier de Réparation</b><br>4 rue du Château, Sainte-Croix-Grand-Tonne").openPopup();
+    });
+  </script>
+</body>
+</html>
